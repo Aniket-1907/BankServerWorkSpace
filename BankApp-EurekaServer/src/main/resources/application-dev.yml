@@ -1,0 +1,26 @@
+server:
+  port: 3333
+  
+spring:
+  application:
+   name: BankApp-Eurekaserver
+  boot:
+   admin:
+    client:
+     url: http://localhost:9090
+   
+eureka:
+  instance:
+    hostname: localhost
+     
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    
+management:
+ endpoints:
+  health:
+   show-details: always
+  web:
+   exposure:
+    include: '*'  

@@ -1,0 +1,11 @@
+server:
+  port: 9090
+  
+spring:
+  application:
+    name: BankApp-Monitoring
+  boot:
+   admin:
+    client:
+     instance:
+      prefer-ip: true

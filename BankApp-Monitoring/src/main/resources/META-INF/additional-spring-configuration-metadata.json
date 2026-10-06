@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "     prefer-ip",
+    "type": "java.lang.String",
+    "description": "A description for '     prefer-ip'"
+  },
+  {
+    "name": "   client",
+    "type": "java.lang.String",
+    "description": "A description for '   client'"
+  },
+  {
+    "name": "    instance",
+    "type": "java.lang.String",
+    "description": "A description for '    instance'"
+  },
+  {
+    "name": "  admin",
+    "type": "java.lang.String",
+    "description": "A description for '  admin'"
+  }
+]}

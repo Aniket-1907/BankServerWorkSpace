@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "spring.seconddatasoure.url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.seconddatasoure.url'"
+  },
+  {
+    "name": "spring.seconddatasoure.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.seconddatasoure.driver-class-name'"
+  },
+  {
+    "name": "spring.seconddatasoure.username",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.seconddatasoure.username'"
+  },
+  {
+    "name": "spring.seconddatasoure.password",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.seconddatasoure.password'"
+  }
+]}
