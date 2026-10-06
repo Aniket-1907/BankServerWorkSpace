@@ -1,0 +1,176 @@
+version: "3.8"
+
+networks:
+  springboot-mysql-net:
+    driver: bridge
+
+ 
+volumes:
+  redis-data:
+
+services:
+  bankapp-customer-service:
+    container_name: bankapp-customer-container
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: CustomerDB
+    networks:
+      springboot-mysql-net:
+
+ 
+
+  bankapp-account-service:
+    container_name: bankapp-account-container
+    image: mysql
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: AccountDB
+    networks:
+      springboot-mysql-net:
+
+ 
+
+  bankapp-transaction-service:
+    container_name: bankapp-transaction-container
+    image: mysql
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: TransactionDB
+    networks:
+      springboot-mysql-net:
+
+  bankapp-auth-service:
+    container_name: bankapp-auth-container
+    image: mysql
+    ports:
+      - "3309:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: AuthDB
+    networks:
+      springboot-mysql-net:
+
+  axonserver:
+    image: axoniq/axonserver:4.6.7
+    hostname: axonserver
+    environment:
+      - AXONIQ_AXONSERVER_DEVMODE_ENABLED=true
+    ports:
+      - '8024:8024'
+      - '8124:8124'
+
+  redis-server:
+    image: redis:6.2-alpine
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: always
+
+  eurekaserver:
+    container_name: bankapp-eureka-container
+    build:
+      context: ./BankApp-EurekaServer/
+      dockerfile: Dockerfile
+    ports:
+      - "3333:3333"
+    networks:
+      springboot-mysql-net:
+    restart: on-failure
+
+  api-gateway:
+    container_name: bankapp-api-container
+    build:
+      context: ./BankServer-Api-Gateway/
+      dockerfile: Dockerfile
+    ports:
+      - "2222:2222"
+    depends_on:
+      - eurekaserver
+    networks:
+      springboot-mysql-net:
+    restart: on-failure
+
+ 
+
+  authentication-service:
+    container_name: bankapp-auth-container
+    build:
+      context: ./BankApp-AuthenticationService
+      dockerfile: Dockerfile
+    depends_on:
+      - eurekaserver
+      - redis-server
+    networks:
+      springboot-mysql-net:
+    restart: on-failure
+
+  customer-service:
+    container_name: bankapp-customer-container
+    build:
+      context: ./BankApp-CustomerService/
+      dockerfile: Dockerfile
+    depends_on:
+      - eurekaserver
+      - api-gateway
+      - authentication-service
+      - axonserver
+    networks:
+      springboot-mysql-net:
+    restart: on-failure
+
+ 
+
+  account-service:
+    container_name: bankapp-account-container
+    build:
+      context: ./BankApp-AccountService/
+      dockerfile: Dockerfile
+    depends_on:
+      - eurekaserver
+      - api-gateway
+      - authentication-service
+      - axonserver
+    networks:
+      springboot-mysql-net:
+    restart: on-failure
+
+ 
+
+  transaction-service:
+    container_name: bankapp-transaction-container
+    build:
+      context: ./BankApp-TransactionService/
+      dockerfile: Dockerfile
+    depends_on:
+      - eurekaserver
+      - api-gateway
+      - authentication-service
+      - axonserver
+    networks:
+      springboot-mysql-net:
+    restart: on-failure
+
+  monitoring-service:
+    container_name: bankapp-monitoring-container
+    build:
+      context: ./BankApp-Monitoring/
+      dockerfile: Dockerfile
+    depends_on:
+      - api-gateway
+      - authentication-service
+      - customer-service
+      - account-service
+      - transaction-service
+    networks:
+      springboot-mysql-net:
+      restart: on-failure
