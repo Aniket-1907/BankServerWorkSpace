@@ -174,3 +174,7 @@ services:
     networks:
       springboot-mysql-net:
       restart: on-failure
+
+
+#  docker run -d --name axonserver -p 8024:8024 -p 8124:8124 -e AXONIQ_AXONSERVER_STANDALONE=true axoniq/axonserver
+#  docker run -d --name redis -p 6379:6379 redis
