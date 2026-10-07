@@ -1,0 +1,58 @@
+server:
+  port: 2222
+
+spring:
+  application:
+    name: BankApp-Api-Gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: BankApp-AuthenticationService
+        uri: lb://BankApp-AuthenticationService/
+        predicates:
+        - Path=/auth/**
+          
+      - id: BankApp-CustomerService
+        uri: lb://BankApp-CustomerService/
+        predicates:
+        - Path=/customer/**
+        filters:
+        - AuthenticationFilter
+        
+      - id: BankApp-AccountService
+        uri: lb://BankApp-AccountService/
+        predicates:
+        - Path=/account/**
+        filters:
+        - AuthenticationFilter
+        
+      - id: BankApp-TransactionService
+        uri: lb://BankApp-TransactionService/
+        predicates:
+        - Path=/transaction/**
+        filters:
+        - AuthenticationFilter
+  boot:
+   admin:
+    client:
+     url: http://bankapp-monitoring-container:9090
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://bankapp-eureka-container:3333/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true 
+    
+management:
+ endpoints:
+  health:
+   show-details: always
+  web:
+   exposure:
+    include: '*'       

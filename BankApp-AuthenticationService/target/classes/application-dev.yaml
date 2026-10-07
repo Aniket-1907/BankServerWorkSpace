@@ -1,0 +1,39 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: update
+  application:
+    name: BankApp-AuthenticationService
+  boot:
+    admin:
+      client:
+        url: http://localhost:9090
+  datasource:
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/bankapp_auth_db?createDatabaseIfNotExist=true
+eureka:
+  client:
+    register-with-eureka: 'true'
+    service-url:
+      defaultZone: http://localhost:3333/eureka
+    fetch-registry: 'true'
+  instance:
+    prefer-ip-address: 'true'
+server:
+  servlet:
+    context-path: /auth
+  port: '9012'

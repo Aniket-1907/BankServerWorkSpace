@@ -8,10 +8,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cg</groupId>
-	<artifactId>BankApp-Eureka-Server</artifactId>
+	<artifactId>BankApp-EurekaServer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>BankApp-Eureka-Server</name>
-	<description>Demo project for Spring Boot</description>
+	<name>BankApp-EurekaServer</name>
+	<description>Eureka Server For Banking Application For checking Service health</description>
 	<packaging>jar</packaging>
 	<properties>
 		<java.version>17</java.version>
