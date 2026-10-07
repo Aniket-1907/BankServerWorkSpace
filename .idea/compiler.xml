@@ -7,9 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="BankApp-Api-Gateway" />
+        <module name="BankApp-TransactionService" />
         <module name="BankApp-AccountService" />
         <module name="BankApp-Eureka-Server" />
+        <module name="onlineshop-monitoring" />
+        <module name="BankApp-Api-Gateway" />
+        <module name="BankApp-CustomerService" />
+        <module name="BankServerAuthenticationService" />
       </profile>
     </annotationProcessing>
   </component>
@@ -17,7 +21,11 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="BankApp-AccountService" options="-parameters" />
       <module name="BankApp-Api-Gateway" options="-parameters" />
+      <module name="BankApp-CustomerService" options="-parameters" />
       <module name="BankApp-Eureka-Server" options="-parameters" />
+      <module name="BankApp-TransactionService" options="-parameters" />
+      <module name="BankServerAuthenticationService" options="-parameters" />
+      <module name="onlineshop-monitoring" options="-parameters" />
     </option>
   </component>
 </project>

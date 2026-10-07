@@ -7,6 +7,10 @@
         <option value="$PROJECT_DIR$/BankApp-AccountService/pom.xml" />
         <option value="$PROJECT_DIR$/BankApp-Api-Gateway/pom.xml" />
         <option value="$PROJECT_DIR$/BankApp-EurekaServer/pom.xml" />
+        <option value="$PROJECT_DIR$/BankApp-CustomerService/pom.xml" />
+        <option value="$PROJECT_DIR$/BankApp-Monitoring/pom.xml" />
+        <option value="$PROJECT_DIR$/BankApp-AuthenticationService/pom.xml" />
+        <option value="$PROJECT_DIR$/BankApp-TransactionService/pom.xml" />
       </list>
     </option>
   </component>
