@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.bankapp.dtos.CustomerDTO;
@@ -16,7 +17,7 @@ public class CustomerQueryController {
 	
 	@Autowired private CustomerQueryService service; 
 	@GetMapping(value = "/getCustomerDetails" )
-	public ResponseEntity<CustomerDTO> getCustomerDetails(int id) throws CustomerDetailsNotFoundException {
+	public ResponseEntity<CustomerDTO> getCustomerDetails(@RequestParam int id) throws CustomerDetailsNotFoundException {
 		Customer customer = service.getCustomerDetails(id);
 		CustomerDTO customerDTO = new CustomerDTO();
 		BeanUtils.copyProperties(customer, customerDTO);

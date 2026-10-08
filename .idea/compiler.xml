@@ -8,10 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="BankApp-TransactionService" />
+        <module name="BankApp-Monitoring" />
         <module name="BankApp-AccountService" />
         <module name="BankApp-Eureka-Server" />
         <module name="onlineshop-monitoring" />
+        <module name="BankApp-EurekaServer" />
         <module name="BankApp-Api-Gateway" />
+        <module name="BankApp-AuthenticationService" />
         <module name="BankApp-CustomerService" />
         <module name="BankServerAuthenticationService" />
       </profile>
@@ -21,8 +24,11 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="BankApp-AccountService" options="-parameters" />
       <module name="BankApp-Api-Gateway" options="-parameters" />
+      <module name="BankApp-AuthenticationService" options="-parameters" />
       <module name="BankApp-CustomerService" options="-parameters" />
       <module name="BankApp-Eureka-Server" options="-parameters" />
+      <module name="BankApp-EurekaServer" options="-parameters" />
+      <module name="BankApp-Monitoring" options="-parameters" />
       <module name="BankApp-TransactionService" options="-parameters" />
       <module name="BankServerAuthenticationService" options="-parameters" />
       <module name="onlineshop-monitoring" options="-parameters" />
