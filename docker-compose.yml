@@ -115,7 +115,7 @@ services:
   api-gateway:
     container_name: bankapp-api-container
     build:
-      context: ./BankServer-Api-Gateway/
+      context: ./BankApp-Api-Gateway/
       dockerfile: Dockerfile
     ports:
       - "2222:2222"
