@@ -9,9 +9,9 @@
 	</parent>
 	<groupId>com.cg</groupId>
 	<artifactId>BankApp-Monitoring</artifactId>
-<!--	<version>0.0.1-SNAPSHOT</version>-->
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>BankApp-Monitoring</name>
+	<description>Spring project for Monitoring and Observability</description>
 	<properties>
 		<java.version>17</java.version>
 		<spring-boot-admin.version>3.0.2</spring-boot-admin.version>
