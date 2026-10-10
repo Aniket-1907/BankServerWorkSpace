@@ -70,7 +70,7 @@ services:
     image: axoniq/axonserver:4.6.7
     hostname: axonserver
     environment:
-      AXONIQ_AXONSERVER_DEVMODE_ENABLED: "true"
+      AXONIQ_AXONSERVER_STANDALONE: "true"
     ports:
       - "8024:8024"
       - "8124:8124"
