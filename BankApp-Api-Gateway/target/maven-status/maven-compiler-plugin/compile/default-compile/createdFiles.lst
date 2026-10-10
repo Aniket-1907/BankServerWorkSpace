@@ -1,0 +1,6 @@
+com\cg\bankapp\filter\AuthenticationFilter.class
+com\cg\bankapp\filter\ExceptionResponseModel.class
+com\cg\bankapp\filter\AuthenticationFilter$Config.class
+com\cg\bankapp\filter\Authorities.class
+com\cg\bankapp\BankAppApiGatewayApplication.class
+com\cg\bankapp\filter\ConnValidationResponse.class
