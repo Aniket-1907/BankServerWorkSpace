@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+import io.micrometer.core.instrument.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -46,9 +47,9 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
             log.info("**************************************************************************");
-            log.info("URL is - " + request.getURI().getPath());
+            log.info("URL is - {}", request.getURI().getPath());
             String bearerToken = request.getHeaders().getFirst("Authorization");
-            log.info("Bearer Token: "+ bearerToken);
+            log.info("Is Bearer Token Present : {}", StringUtils.isBlank(bearerToken));
 
             if(isSecured.test(request)) {
                 log.info("secured");

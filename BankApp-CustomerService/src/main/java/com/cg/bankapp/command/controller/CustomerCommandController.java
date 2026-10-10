@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.cg.bankapp.command.entities.Customer;
 import com.cg.bankapp.command.service.CustomerCommandService;
@@ -37,7 +34,7 @@ public class CustomerCommandController {
 		BeanUtils.copyProperties(service.updateCustomerDetails(customer), responseCustomerDTO);
 		return new ResponseEntity<CustomerDTO>(responseCustomerDTO,HttpStatus.OK) ;	
 	}
-	@PostMapping(value="/deleteCustomerDetails")
+	@DeleteMapping(value="/deleteCustomerDetails")
 	public ResponseEntity<String> deleteCustomerDetails(@RequestParam int id){
 		String message=null;
 		if(service.deleteCustomerDetails(id)) {

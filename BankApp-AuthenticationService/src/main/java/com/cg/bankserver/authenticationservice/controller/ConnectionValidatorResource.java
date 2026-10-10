@@ -27,16 +27,6 @@ public class ConnectionValidatorResource {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/hello")
-	public ResponseEntity<String> helloRoute() {
-		return ResponseEntity.ok("World");
-	}
-
-	@PostMapping(value = { "/check" })
-	public ResponseEntity<String> check() {
-		return ResponseEntity.ok("Checked");
-	}
-
 	@PostMapping(value = { "/add" })
 	public ResponseEntity<User> addUser(@RequestBody User user) throws UsernameAlreadyExistsException {
 		return ResponseEntity.ok(userService.encryptAndSave(user));
@@ -50,6 +40,7 @@ public class ConnectionValidatorResource {
 
 	@GetMapping(value = "/validate", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<ConnValidationResponse> validateGet(HttpServletRequest request) {
+		System.out.println("Authentication Service /validate GET request received");
 		String username = (String) request.getAttribute("username");
 		String token = (String) request.getAttribute("jwt");
 		log.info("username " + username);
