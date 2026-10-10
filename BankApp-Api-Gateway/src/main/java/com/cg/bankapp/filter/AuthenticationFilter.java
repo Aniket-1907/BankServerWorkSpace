@@ -29,7 +29,7 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
-    @Value("${auth.validate.validationURL")
+    @Value("${auth.validate.validationURL}")
     private String validateUrl;
 
     List<String> excludedUrls = new ArrayList<>(List.of("/auth/add, /auth/login", "/customer/addCustomerDetails"));
@@ -56,17 +56,25 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 
             if(isSecured.test(request)) {
                 log.info("secured");
-                return webClientBuilder.build().get()
+                WebClient.ResponseSpec responseSpec=webClientBuilder
+                        .build().get()
                         .uri(validateUrl)
                         .header("Authorization", bearerToken)
-                        .retrieve().bodyToMono(ConnValidationResponse.class)
+                        .retrieve();
+                log.info("WebClient Response Spec : {}", responseSpec);
+                Mono<ServerWebExchange> serverWebExchangeMono=responseSpec
+                        .bodyToMono(ConnValidationResponse.class)
                         .map(response -> {
                             exchange.getRequest().mutate().header("username", response.getUsername());
                             exchange.getRequest().mutate().header("authorities", response.getAuthorities().stream().map(Authorities::getAuthority).reduce("", (a, b) -> a + "," + b));
 
                             return exchange;
-                        }).flatMap(chain::filter).onErrorResume(error -> {
-                            log.info("Error Happened " + error.getMessage());
+                        });
+                log.info("WebClient Response : {}", serverWebExchangeMono);
+                return serverWebExchangeMono
+                        .flatMap(chain::filter)
+                        .onErrorResume(error -> {
+                            log.info("Error Happened {}", error.getMessage());
                             HttpStatus errorCode = null;
                             String errorMsg = "";
                             if (error instanceof WebClientResponseException) {

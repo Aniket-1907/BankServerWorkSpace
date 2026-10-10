@@ -38,13 +38,14 @@ public class ConnectionValidatorResource {
 				.isAuthenticated(true).build());
 	}
 
-	@GetMapping(value = "/validate", produces = { MediaType.APPLICATION_JSON_VALUE })
+	@GetMapping(value = {"/validate"}, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<ConnValidationResponse> validateGet(HttpServletRequest request) {
-		System.out.println("Authentication Service /validate GET request received");
+		log.info("Authentication Service /validate GET request received");
 		String username = (String) request.getAttribute("username");
 		String token = (String) request.getAttribute("jwt");
-		log.info("username " + username);
+        log.info("username {}", username);
 		List<GrantedAuthority> grantedAuthorities = (List<GrantedAuthority>) request.getAttribute("authorities");
+		log.info("Granted Authorities : " + grantedAuthorities);
 		return ResponseEntity.ok(ConnValidationResponse.builder().status("OK").methodType(HttpMethod.GET.name())
 				.username(username).token(token).authorities(grantedAuthorities).isAuthenticated(true).build());
 	}

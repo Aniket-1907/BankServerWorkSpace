@@ -37,3 +37,6 @@ server:
   servlet:
     context-path: /auth
   port: '9012'
+#logging:
+#  level:
+#    org.springframework.security: TRACE

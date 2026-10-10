@@ -40,10 +40,13 @@ public class WebSecurityConfig {
 			http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 			http.addFilter(new JWTAuthenticationFilter(authenticationManager, redisService));
 			http.addFilterAfter(new JWTVerifierFilter(redisService), JWTAuthenticationFilter.class).authorizeHttpRequests();
-			http.authorizeHttpRequests((auth) -> auth.requestMatchers("/add").permitAll());
-			http.authorizeHttpRequests((auth) -> auth.requestMatchers("/actuator/**").permitAll());
-	        http.authorizeHttpRequests((auth)->auth.
-							anyRequest().authenticated());
+			http.authorizeHttpRequests(
+					(auth) -> auth
+					.requestMatchers("/validate").permitAll()
+					.requestMatchers("/add").permitAll()
+					.requestMatchers("/actuator/**").permitAll()
+					.anyRequest().authenticated()
+			);
 	        return http.build();
 	}
 }
