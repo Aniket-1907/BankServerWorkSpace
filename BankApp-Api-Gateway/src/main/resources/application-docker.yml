@@ -1,6 +1,10 @@
 server:
   port: 2222
 
+auth:
+  validate:
+    validationURL: http://bankapp-auth-service-container:9012/auth/validate
+
 spring:
   application:
     name: BankApp-Api-Gateway

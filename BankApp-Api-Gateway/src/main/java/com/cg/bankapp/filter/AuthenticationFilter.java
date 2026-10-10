@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import io.micrometer.core.instrument.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.core.io.buffer.DataBufferFactory;
@@ -28,6 +29,8 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
+    @Value("${auth.validate.validationURL")
+    private String validateUrl;
 
     List<String> excludedUrls = new ArrayList<>(List.of("/auth/add, /auth/login", "/customer/addCustomerDetails"));
     private final WebClient.Builder webClientBuilder;
@@ -49,12 +52,12 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
             log.info("**************************************************************************");
             log.info("URL is - {}", request.getURI().getPath());
             String bearerToken = request.getHeaders().getFirst("Authorization");
-            log.info("Is Bearer Token Present : {}", StringUtils.isBlank(bearerToken));
+            log.info("Is Bearer Token Present : {}", !StringUtils.isBlank(bearerToken));
 
             if(isSecured.test(request)) {
                 log.info("secured");
                 return webClientBuilder.build().get()
-                        .uri("http://localhost:9012/auth/validate")
+                        .uri(validateUrl)
                         .header("Authorization", bearerToken)
                         .retrieve().bodyToMono(ConnValidationResponse.class)
                         .map(response -> {
