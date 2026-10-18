@@ -1,4 +1,4 @@
-package com.cg.bankapp;
+package com.cg.bankapp.practice;
 
 public class SingletonClass {
 

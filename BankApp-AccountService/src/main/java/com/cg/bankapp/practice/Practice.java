@@ -1,6 +1,6 @@
-package com.cg.bankapp;
+package com.cg.bankapp.practice;
 
-import org.springframework.boot.SpringApplication;
+import com.cg.bankapp.practice.list.ListNode;
 
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -114,6 +114,78 @@ public class Practice {
         maxProduct(22);
         maxProduct(124);
 
+
+        Integer a1 = 100;
+        Integer b = a1;
+        a1 = a1 + 50;
+        System.out.println(a1); // 150
+        System.out.println(b); // 100
+
+        String fs = "First String";
+        String ss = fs;
+        fs = "Second String";
+        System.out.println(fs); // Second String
+        System.out.println(ss); // First String
+
+        int x = 10;
+        int y = x;
+        x = 20;
+        System.out.println(x); // 20
+        System.out.println(y); // 10
+
+        Comparator<Integer> comparator= ( xxx,yyy) -> xxx-yyy;
+        System.out.println(" Comparator.compare - "+comparator.compare(10,20));
+
+        Comparable<Integer> comparable= (xxx) -> 10-xxx;
+        System.out.println(" Comparable.compareTo - "+comparable.compareTo(20));
+
+
+
+        HashMap<String,Integer> hm1=new HashMap<>();
+        hm1.put("One",1);
+        hm1.put("Two",2);
+        hm1.put("Three",3);
+
+        HashMap<String,Integer> hm2=new HashMap<>();
+        hm2.put("One",1);
+        hm2.put("Two",2);
+        hm2.put("Three",3);
+
+        System.out.println( "Two different HashMap with same entries are same - "+hm1.equals(hm2));
+        maxSlidingWindow(new int[]{1,3,-1,-3,5,3,6,7},3);
+
+        maxAlternatingSum(new int[]{1,-1,2,-2,3,-3});
+    }
+    public static long maxAlternatingSum(int[] nums) {
+        nums=Arrays.stream(nums).map (x -> x*x).toArray();
+        Arrays.sort(nums);
+        long sum=0;
+
+        int i=0;
+        int j=nums.length-1;
+        while(i<j){
+            sum-=nums[i];
+            sum+=nums[j];
+            i++;
+            j--;
+        }
+        return sum;
+    }
+    public static int[] maxSlidingWindow(int[] nums, int k) {
+        PriorityQueue<Integer> pq=new PriorityQueue<>(Comparator.reverseOrder());
+        for(int i=0;i<k;i++){
+            pq.add(nums[i]);
+        }
+        int[] res=new int[nums.length-k+1];
+        res[0]=pq.peek();
+        int i=0,j=k;
+        int it=1;
+        while(j<nums.length){
+            pq.remove(nums[i++]);
+            pq.add(nums[j++]);
+            res[it++]=pq.peek();
+        }
+        return res;
     }
     public static List<List<String>> groupAnagrams(String[] strs) {
         Map<String,List<String>> map=new HashMap<>();
@@ -376,4 +448,30 @@ public class Practice {
                 .anyMatch(num -> num == k);
     }
 
+    public long minSumSquareDiff(int[] nums1, int[] nums2, int k1, int k2) {
+        int n=nums1.length;
+        int k=k1+k2;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> Integer.compare(b[0],a[0]));
+        for(int i=0;i<n;i++){
+            int[] d=new int[3];
+            d[0]=Math.abs(nums1[i]-nums2[i]);
+            d[1]=nums1[i];
+            d[2]=nums2[i];
+            pq.add(d);
+        }
+        while (k > 0) {
+            assert pq.peek() != null;
+            if (!(pq.peek()[0] > 0)) break;
+            int[] d=pq.poll();
+            d[0]--;
+            pq.add(d);
+            k--;
+        }
+        long ans = 0;
+        while(!pq.isEmpty()) {
+            int[] row=pq.poll();
+            ans += (long) row[0] * row[0];
+        }
+        return ans;
+    }
 }

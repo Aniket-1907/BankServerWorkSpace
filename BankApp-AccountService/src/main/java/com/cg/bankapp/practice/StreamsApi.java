@@ -1,4 +1,4 @@
-package com.cg.bankapp;
+package com.cg.bankapp.practice;
 
 import java.util.*;
 import java.util.function.Function;

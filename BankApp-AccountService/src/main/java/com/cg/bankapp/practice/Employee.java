@@ -1,4 +1,4 @@
-package com.cg.bankapp;
+package com.cg.bankapp.practice;
 
 import lombok.Data;
 

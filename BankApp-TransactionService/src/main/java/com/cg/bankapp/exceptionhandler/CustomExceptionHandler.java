@@ -2,10 +2,10 @@ package com.cg.bankapp.exceptionhandler;
 import org.axonframework.queryhandling.QueryExecutionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class CustomExceptionHandler {
 		@ExceptionHandler
 		public ResponseEntity<String> handelQueryExceptionHandler(QueryExecutionException e){

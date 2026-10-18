@@ -1,4 +1,4 @@
-package com.cg.bankapp;
+package com.cg.bankapp.practice;
 
 interface Calculator {
     int calculate(int a, int b);
