@@ -334,5 +334,13 @@ public class StreamsApi {
                 );
 
         System.out.println(resultNew);
+
+        Stack<Character> st=new Stack<>();
+        st.push('1');
+        st.push('2');
+        st.push('3');
+        st.push('5');
+        String s=st.stream().map(String::valueOf).collect(Collectors.joining());
+        System.out.println(s);
     }
 }

@@ -1,8 +1,8 @@
 package com.cg.bankapp.practice.tree.traversal;
 
-import com.cg.bankapp.practice.tree.BinaryTree;
+import com.cg.bankapp.practice.tree.TreeNode;
 
 public interface Traversal<T> {
-    void printOrder(BinaryTree binaryTree);
-    T getOrder(BinaryTree binaryTree);
+    void printOrder(TreeNode treeNode);
+    T getOrder(TreeNode treeNode);
 }
